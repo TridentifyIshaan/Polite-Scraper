@@ -1,0 +1,20 @@
+[project]
+name = "polite-scraper"
+version = "1.0.0"
+description = "A polite, fault-tolerant web scraping pipeline for Books to Scrape"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "pydantic>=2.14.0",
+    "requests>=2.34.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
