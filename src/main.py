@@ -5,14 +5,14 @@ import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 # Ensure project root is in sys.path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src.config import MAX_CATALOGUE_PAGES, START_URL
+from src.config import MAX_CATALOGUE_PAGES, OUTPUT_DIR, START_URL
 from src.fetcher import PoliteFetcher
-from src.models import RawBook
+from src.models import BookRecord, RawBook
 from src.parser import (
     extract_book_details,
     extract_catalogue_book_urls,
@@ -53,28 +53,8 @@ def discover_book_urls(fetcher: PoliteFetcher) -> Tuple[List[Tuple[str, str]], i
     return unique, catalogue_pages_count
 
 
-def run_stage_1(fetcher: PoliteFetcher) -> None:
-    """Milestone 1: Fetch once, cache once."""
-    result = fetcher.fetch(START_URL)
-    if result is None:
-        print(f"Failed to fetch {START_URL}", file=sys.stderr)
-        sys.exit(1)
-
-
-def run_stage_2(fetcher: PoliteFetcher) -> List[Tuple[str, str]]:
-    """Milestone 2: Discover three catalogue pages and collect book URLs."""
-    unique_items, cat_count = discover_book_urls(fetcher)
-    discovered_count = cat_count * 20  # approximate if full
-    print(
-        f"catalogue_pages={cat_count}, "
-        f"discovered={cat_count * 20}, "
-        f"unique_urls={len(unique_items)}"
-    )
-    return unique_items
-
-
-def run_stage_3(fetcher: PoliteFetcher) -> List[RawBook]:
-    """Milestone 3: Extract raw records for all 60 books."""
+def extract_all_raw_records(fetcher: PoliteFetcher) -> List[RawBook]:
+    """Extract raw records for all discovered books."""
     unique_items, _ = discover_book_urls(fetcher)
     raw_records: List[RawBook] = []
 
@@ -92,6 +72,32 @@ def run_stage_3(fetcher: PoliteFetcher) -> List[RawBook]:
         )
         raw_records.append(record)
 
+    return raw_records
+
+
+def run_stage_1(fetcher: PoliteFetcher) -> None:
+    """Milestone 1: Fetch once, cache once."""
+    result = fetcher.fetch(START_URL)
+    if result is None:
+        print(f"Failed to fetch {START_URL}", file=sys.stderr)
+        sys.exit(1)
+
+
+def run_stage_2(fetcher: PoliteFetcher) -> List[Tuple[str, str]]:
+    """Milestone 2: Discover three catalogue pages and collect book URLs."""
+    unique_items, cat_count = discover_book_urls(fetcher)
+    print(
+        f"catalogue_pages={cat_count}, "
+        f"discovered={cat_count * 20}, "
+        f"unique_urls={len(unique_items)}"
+    )
+    return unique_items
+
+
+def run_stage_3(fetcher: PoliteFetcher) -> List[RawBook]:
+    """Milestone 3: Extract raw records for all 60 books."""
+    raw_records = extract_all_raw_records(fetcher)
+
     if raw_records:
         print("\n--- Sample Raw Record ---")
         print(json.dumps(raw_records[0].model_dump(), indent=2))
@@ -101,12 +107,61 @@ def run_stage_3(fetcher: PoliteFetcher) -> List[RawBook]:
     return raw_records
 
 
+def run_stage_4(fetcher: PoliteFetcher) -> List[BookRecord]:
+    """Milestone 4: Normalize, validate schema, and store idempotently in output/books.json."""
+    raw_records = extract_all_raw_records(fetcher)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    valid_records_by_url: Dict[str, BookRecord] = {}
+    invalid_records: List[Dict[str, Any]] = []
+
+    for raw in raw_records:
+        try:
+            validated = BookRecord.from_raw(raw)
+            # Idempotent deduplication by canonical product_url
+            valid_records_by_url[validated.product_url] = validated
+        except Exception as e:
+            invalid_records.append({
+                "product_url": raw.product_url,
+                "reason": str(e),
+                "raw_record": raw.model_dump(),
+            })
+
+    # Save validated records
+    books_file = OUTPUT_DIR / "books.json"
+    records_list = [record.model_dump() for record in valid_records_by_url.values()]
+    books_file.write_text(json.dumps(records_list, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    # Save invalid records if any
+    errors_file = OUTPUT_DIR / "errors.json"
+    if invalid_records:
+        errors_file.write_text(json.dumps(invalid_records, indent=2, ensure_ascii=False), encoding="utf-8")
+    elif errors_file.exists():
+        errors_file.unlink()
+
+    # Validation checks for Checkpoint 4
+    with open(books_file, "r", encoding="utf-8") as f:
+        saved_data = json.load(f)
+
+    all_prices_numeric = all(isinstance(r["price_gbp"], (int, float)) for r in saved_data)
+    all_urls_https = all(r["product_url"].startswith("https://") for r in saved_data)
+
+    print(f"Stored {len(saved_data)} valid records to {books_file}")
+    print(f"Checkpoint 4 verification:")
+    print(f" - Exactly 60 records: {len(saved_data) == 60} (count={len(saved_data)})")
+    print(f" - Every price_gbp is numeric: {all_prices_numeric}")
+    print(f" - Every product_url starts with https://: {all_urls_https}")
+    print(f" - Schema errors: {len(invalid_records)}")
+
+    return list(valid_records_by_url.values())
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Polite Scraper Pipeline")
     parser.add_argument(
         "--stage",
         type=int,
-        default=3,
+        default=4,
         help="Run up to or specific stage checkpoint (1-6)",
     )
     args = parser.parse_args()
@@ -118,6 +173,8 @@ def main() -> None:
         run_stage_2(fetcher)
     elif args.stage == 3:
         run_stage_3(fetcher)
+    elif args.stage == 4:
+        run_stage_4(fetcher)
 
 
 if __name__ == "__main__":
