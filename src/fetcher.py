@@ -120,6 +120,9 @@ class PoliteFetcher:
 
                 # Check status code strictly
                 if response.status_code == 200:
+                    # Books to Scrape is UTF-8 encoded; override ISO-8859-1 default
+                    if not response.encoding or response.encoding.lower() == "iso-8859-1":
+                        response.encoding = "utf-8"
                     content = response.text
                     size_bytes = len(response.content)
                     self.pages_fetched += 1
