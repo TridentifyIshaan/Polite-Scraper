@@ -1,15 +1,38 @@
-"""Polite Scraper - A polite, fault-tolerant web scraping pipeline.
+"""Polite Scraper - Main Entry Point."""
 
-Target: Books to Scrape (https://books.toscrape.com)
-Milestone 0: Check before you collect.
-"""
+import argparse
+import sys
+from pathlib import Path
+
+# Ensure project root is in sys.path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from src.config import START_URL
+from src.fetcher import PoliteFetcher
+
+
+def run_stage_1() -> None:
+    """Milestone 1: Fetch once, cache once."""
+    fetcher = PoliteFetcher()
+    result = fetcher.fetch(START_URL)
+    if result is None:
+        print(f"Failed to fetch {START_URL}", file=sys.stderr)
+        sys.exit(1)
+
 
 def main() -> None:
-    print("Polite Scraper initialized.")
-    print("Target: Books to Scrape (https://books.toscrape.com)")
-    print("Scope: First 3 catalogue pages (60 books)")
-    print("Robots check: HTTP 404 (no robots file found)")
-    print("Notice: 'I will not reuse this code on another site without checking its rules and terms first.'")
+    parser = argparse.ArgumentParser(description="Polite Scraper Pipeline")
+    parser.add_argument(
+        "--stage",
+        type=int,
+        default=1,
+        help="Run up to or specific stage checkpoint (1-6)",
+    )
+    args = parser.parse_args()
+
+    if args.stage == 1:
+        run_stage_1()
+
 
 if __name__ == "__main__":
     main()
