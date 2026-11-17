@@ -13,6 +13,11 @@ from typing import Any, Dict, List, Optional, Tuple
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.config import MAX_CATALOGUE_PAGES, OUTPUT_DIR, START_URL
+from src.export import (
+    compute_change_detection,
+    export_books_to_csv,
+    generate_dashboard,
+)
 from src.fetcher import PoliteFetcher
 from src.models import BookRecord, RawBook, RunReport
 from src.parser import (
@@ -64,6 +69,7 @@ def discover_book_urls(fetcher: PoliteFetcher) -> Tuple[List[Tuple[str, str]], i
 def scrape_books(
     fetcher: PoliteFetcher,
     inject_fake_url: bool = False,
+    generate_extras: bool = True,
 ) -> Tuple[List[BookRecord], List[Dict[str, Any]], RunReport]:
     """Run full scraping pipeline: fetch -> extract -> normalize -> validate -> store -> report."""
     start_time_dt = datetime.now(timezone.utc)
@@ -141,6 +147,14 @@ def scrape_books(
     report_file = OUTPUT_DIR / "run-report.json"
     report_file.write_text(json.dumps(report.model_dump(), indent=2), encoding="utf-8")
 
+    # Optional enhancements: CSV export, change detection, tiny dashboard
+    if generate_extras and records_list:
+        valid_list = list(valid_records_by_url.values())
+        export_books_to_csv(valid_list, OUTPUT_DIR / "books.csv")
+        change_report = compute_change_detection(valid_list, OUTPUT_DIR / ".book_hashes.json")
+        (OUTPUT_DIR / "change-report.json").write_text(json.dumps(change_report, indent=2), encoding="utf-8")
+        generate_dashboard(valid_list, report, OUTPUT_DIR / "dashboard.html")
+
     return list(valid_records_by_url.values()), invalid_records, report
 
 
@@ -192,7 +206,7 @@ def run_stage_3(fetcher: PoliteFetcher) -> List[RawBook]:
 
 def run_stage_4(fetcher: PoliteFetcher) -> List[BookRecord]:
     """Milestone 4: Normalize, validate schema, and store idempotently in output/books.json."""
-    records, errors, _ = scrape_books(fetcher, inject_fake_url=False)
+    records, errors, _ = scrape_books(fetcher, inject_fake_url=False, generate_extras=False)
     books_file = OUTPUT_DIR / "books.json"
     with open(books_file, "r", encoding="utf-8") as f:
         saved_data = json.load(f)
@@ -211,7 +225,7 @@ def run_stage_4(fetcher: PoliteFetcher) -> List[BookRecord]:
 
 def run_stage_5(fetcher: PoliteFetcher, inject_fake_url: bool = True) -> RunReport:
     """Milestone 5: Survive broken pages and report run."""
-    records, errors, report = scrape_books(fetcher, inject_fake_url=inject_fake_url)
+    records, errors, report = scrape_books(fetcher, inject_fake_url=inject_fake_url, generate_extras=False)
     print("\n--- Milestone 5 Run Report ---")
     print(json.dumps(report.model_dump(), indent=2))
     print("------------------------------")
@@ -249,8 +263,8 @@ def main() -> None:
     elif args.stage == 5:
         run_stage_5(fetcher, inject_fake_url=True)
     else:
-        # Full pipeline (Milestone 6)
-        _, _, report = scrape_books(fetcher, inject_fake_url=args.inject_fake_url)
+        # Full pipeline with extras (Milestone 6)
+        _, _, report = scrape_books(fetcher, inject_fake_url=args.inject_fake_url, generate_extras=True)
         print("\n--- Pipeline Execution Complete ---")
         print(f"Report: {json.dumps(report.model_dump(), indent=2)}")
 

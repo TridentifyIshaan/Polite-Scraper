@@ -53,6 +53,13 @@ python src/main.py --stage 4
 python src/main.py --stage 5
 ```
 
+### Running Tests
+Run the comprehensive unit test suite covering parser normalization, URL resolution, missing descriptions, malformed fixtures, CSV exports, change detection, and dashboard generation:
+
+```bash
+pytest -v tests/
+```
+
 ---
 
 ## 3. Tech Stack & Installation
@@ -153,7 +160,18 @@ When a broken URL is encountered (tested via `--inject-fake-url` or `--stage 5`)
 
 ---
 
-## 8. Honest Limitations
+## 8. Optional Enhancements & Observability
+
+This repository includes several production-grade enhancements:
+- **CSV Export (`output/books.csv`)**: Normalized tabular export of all 60 records with RFC 4180 escaping and flattened whitespace descriptions.
+- **Change Detection (`output/change-report.json`)**: Content hashing (SHA-256) per book to track newly added, modified, unchanged, or removed books across scraper runs.
+- **Observability Dashboard (`output/dashboard.html`)**: Self-contained local HTML dashboard displaying real-time scraping stats, price metrics (min, max, average), stock status, and an interactive book table.
+- **HTML Selector Fixtures & Unit Tests (`tests/`)**: 10 automated test cases testing edge-cases (missing descriptions, extra whitespace, malformed HTML, duplicate URLs, invalid schema types) without touching live servers.
+- **Resilient Retry & Error Handling**: Exponential backoff and Retry-After header parsing for 5xx responses, while treating 403 and 404 responses as terminal.
+
+---
+
+## 9. Honest Limitations
 
 - **Static Content Only**: The pipeline is tailored for server-rendered HTML. It does not execute client-side JavaScript or SPA frameworks (e.g. React/Vue hydration).
 - **Hardcoded Catalogue Depth**: The crawler is intentionally bounded to the first 3 catalogue pages per project specifications.
@@ -161,7 +179,7 @@ When a broken URL is encountered (tested via `--inject-fake-url` or `--stage 5`)
 
 ---
 
-## 9. Ethics Note
+## 10. Ethics Note
 
 Always adhere to ethical data collection principles:
 - **Use an official API when one exists** — direct structured interfaces are faster, cleaner, and intended for programmatic access.

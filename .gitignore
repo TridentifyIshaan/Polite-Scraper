@@ -12,6 +12,7 @@ __pycache__/
 
 # Scraper cache (local cached HTML files)
 cache/
+output/.book_hashes.json
 
 # OS metadata
 .DS_Store

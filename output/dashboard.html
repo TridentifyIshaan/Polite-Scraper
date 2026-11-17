@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Polite Scraper Dashboard</title>
+  <style>
+    :root {
+      --bg: #0d1117; --card: #161b22; --border: #30363d;
+      --text: #c9d1d9; --accent: #2ea043; --blue: #58a6ff;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg); color: var(--text); margin: 0; padding: 24px;
+    }
+    h1 { color: #ffffff; margin-bottom: 4px; }
+    .subtitle { color: #8b949e; margin-bottom: 24px; font-size: 14px; }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 16px; }
+    .card-title { font-size: 12px; text-transform: uppercase; color: #8b949e; letter-spacing: 0.5px; }
+    .card-value { font-size: 24px; font-weight: bold; color: #ffffff; margin-top: 8px; }
+    .card-sub { font-size: 12px; color: var(--accent); margin-top: 4px; }
+    table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 6px; font-size: 13px; }
+    th, td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; }
+    th { background: #21262d; color: #ffffff; font-weight: 600; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .badge { background: #1f6feb33; color: var(--blue); padding: 2px 8px; border-radius: 12px; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <h1>The Polite Scraper · Dashboard</h1>
+  <div class="subtitle">Last fresh: 2026-11-17T11:50:25Z · Run duration: 0.35s</div>
+
+  <div class="metrics">
+    <div class="card">
+      <div class="card-title">Total Books</div>
+      <div class="card-value">60</div>
+      <div class="card-sub">Validated 100%</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Price Range</div>
+      <div class="card-value">£12.84 - £57.31</div>
+      <div class="card-sub">Avg: £35.00</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Observability</div>
+      <div class="card-value">63 hits</div>
+      <div class="card-sub">0 live fetches</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Failures</div>
+      <div class="card-value">0</div>
+      <div class="card-sub">Errors: 0</div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Rating</th>
+        <th>Availability</th>
+        <th>Link</th>
+        <th>Description Snippet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>A Light in the Attic</strong></td><td>£51.77</td><td><span class='badge'>Three</span></td><td>In stock (22 available)</td><td><a href='https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html' target='_blank'>View</a></td><td>It's hard to imagine a world without A Light in the Attic. This now-classic...</td></tr>
+<tr><td><strong>Tipping the Velvet</strong></td><td>£53.74</td><td><span class='badge'>One</span></td><td>In stock (20 available)</td><td><a href='https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html' target='_blank'>View</a></td><td>"Erotic and absorbing...Written with starling power."--"The New York Times ...</td></tr>
+<tr><td><strong>Soumission</strong></td><td>£50.10</td><td><span class='badge'>One</span></td><td>In stock (20 available)</td><td><a href='https://books.toscrape.com/catalogue/soumission_998/index.html' target='_blank'>View</a></td><td>Dans une France assez proche de la nôtre, un homme s’engage dans la carrièr...</td></tr>
+<tr><td><strong>Sharp Objects</strong></td><td>£47.82</td><td><span class='badge'>Four</span></td><td>In stock (20 available)</td><td><a href='https://books.toscrape.com/catalogue/sharp-objects_997/index.html' target='_blank'>View</a></td><td>WICKED above her hipbone, GIRL across her heart Words are like a road map t...</td></tr>
+<tr><td><strong>Sapiens: A Brief History of Humankind</strong></td><td>£54.23</td><td><span class='badge'>Five</span></td><td>In stock (20 available)</td><td><a href='https://books.toscrape.com/catalogue/sapiens-a-brief-history-of-humankind_996/index.html' target='_blank'>View</a></td><td>From a renowned historian comes a groundbreaking narrative of humanity’s cr...</td></tr>
+<tr><td><strong>The Requiem Red</strong></td><td>£22.65</td><td><span class='badge'>One</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/the-requiem-red_995/index.html' target='_blank'>View</a></td><td>Patient Twenty-nine.A monster roams the halls of Soothing Hills Asylum. Thr...</td></tr>
+<tr><td><strong>The Dirty Little Secrets of Getting Your Dream Job</strong></td><td>£33.34</td><td><span class='badge'>Four</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/the-dirty-little-secrets-of-getting-your-dream-job_994/index.html' target='_blank'>View</a></td><td>Drawing on his extensive experience evaluating applicants for his marketing...</td></tr>
+<tr><td><strong>The Coming Woman: A Novel Based on the Life of the Infamous Feminist, Victoria Woodhull</strong></td><td>£17.93</td><td><span class='badge'>Three</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/the-coming-woman-a-novel-based-on-the-life-of-the-infamous-feminist-victoria-woodhull_993/index.html' target='_blank'>View</a></td><td>"If you have a heart, if you have a soul, Karen Hicks' The Coming Woman wil...</td></tr>
+<tr><td><strong>The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics</strong></td><td>£22.60</td><td><span class='badge'>Four</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/the-boys-in-the-boat-nine-americans-and-their-epic-quest-for-gold-at-the-1936-berlin-olympics_992/index.html' target='_blank'>View</a></td><td>For readers of Laura Hillenbrand's Seabiscuit and Unbroken, the dramatic st...</td></tr>
+<tr><td><strong>The Black Maria</strong></td><td>£52.15</td><td><span class='badge'>One</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/the-black-maria_991/index.html' target='_blank'>View</a></td><td>Praise for Aracelis Girmay:"[Girmay's] every loss—she calls them estrangeme...</td></tr>
+<tr><td><strong>Starving Hearts (Triangular Trade Trilogy, #1)</strong></td><td>£13.99</td><td><span class='badge'>Two</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/starving-hearts-triangular-trade-trilogy-1_990/index.html' target='_blank'>View</a></td><td>Since her assault, Miss Annette Chetwynd has been plagued by nightmares and...</td></tr>
+<tr><td><strong>Shakespeare's Sonnets</strong></td><td>£20.66</td><td><span class='badge'>Four</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/shakespeares-sonnets_989/index.html' target='_blank'>View</a></td><td>This book is an important and complete collection of the Sonnets of William...</td></tr>
+<tr><td><strong>Set Me Free</strong></td><td>£17.46</td><td><span class='badge'>Five</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/set-me-free_988/index.html' target='_blank'>View</a></td><td>Aaron Ledbetter’s future had been planned out for him since before he was b...</td></tr>
+<tr><td><strong>Scott Pilgrim's Precious Little Life (Scott Pilgrim #1)</strong></td><td>£52.29</td><td><span class='badge'>Five</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html' target='_blank'>View</a></td><td>Scott Pilgrim's life is totally sweet. He's 23 years old, he's in a rockban...</td></tr>
+<tr><td><strong>Rip it Up and Start Again</strong></td><td>£35.02</td><td><span class='badge'>Five</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/rip-it-up-and-start-again_986/index.html' target='_blank'>View</a></td><td>Punk's raw power rejuvenated rock, but by the summer of 1977 the movement h...</td></tr>
+<tr><td><strong>Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991</strong></td><td>£57.25</td><td><span class='badge'>Three</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/our-band-could-be-your-life-scenes-from-the-american-indie-underground-1981-1991_985/index.html' target='_blank'>View</a></td><td>This is the never-before-told story of the musical revolution that happened...</td></tr>
+<tr><td><strong>Olio</strong></td><td>£23.88</td><td><span class='badge'>One</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/olio_984/index.html' target='_blank'>View</a></td><td>Part fact, part fiction, Tyehimba Jess's much anticipated second book weave...</td></tr>
+<tr><td><strong>Mesaerion: The Best Science Fiction Stories 1800-1849</strong></td><td>£37.59</td><td><span class='badge'>One</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/mesaerion-the-best-science-fiction-stories-1800-1849_983/index.html' target='_blank'>View</a></td><td>Andrew Barger, award-winning author and engineer, has extensively researche...</td></tr>
+<tr><td><strong>Libertarianism for Beginners</strong></td><td>£51.33</td><td><span class='badge'>Two</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/libertarianism-for-beginners_982/index.html' target='_blank'>View</a></td><td>Libertarianism isn't about winning elections; it is first and foremost a po...</td></tr>
+<tr><td><strong>It's Only the Himalayas</strong></td><td>£45.17</td><td><span class='badge'>Two</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/its-only-the-himalayas_981/index.html' target='_blank'>View</a></td><td>“Wherever you go, whatever you do, just . . . don’t do anything stupid.” —M...</td></tr>
+<tr><td><strong>In Her Wake</strong></td><td>£12.84</td><td><span class='badge'>One</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/in-her-wake_980/index.html' target='_blank'>View</a></td><td>A perfect life … until she discovered it wasn’t her own.A tragic family eve...</td></tr>
+<tr><td><strong>How Music Works</strong></td><td>£37.32</td><td><span class='badge'>Two</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/how-music-works_979/index.html' target='_blank'>View</a></td><td>How Music Works is David Byrne’s remarkable and buoyant celebration of a su...</td></tr>
+<tr><td><strong>Foolproof Preserving: A Guide to Small Batch Jams, Jellies, Pickles, Condiments, and More: A Foolproof Guide to Making Small Batch Jams, Jellies, Pickles, Condiments, and More</strong></td><td>£30.52</td><td><span class='badge'>Three</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/foolproof-preserving-a-guide-to-small-batch-jams-jellies-pickles-condiments-and-more-a-foolproof-guide-to-making-small-batch-jams-jellies-pickles-condiments-and-more_978/index.html' target='_blank'>View</a></td><td>Canning perfected the America’s Test Kitchen way. The art of preserving pro...</td></tr>
+<tr><td><strong>Chase Me (Paris Nights #2)</strong></td><td>£25.27</td><td><span class='badge'>Five</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/chase-me-paris-nights-2_977/index.html' target='_blank'>View</a></td><td>A Michelin two-star chef at twenty-eight, Violette Lenoir could handle anyt...</td></tr>
+<tr><td><strong>Black Dust</strong></td><td>£34.53</td><td><span class='badge'>Five</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/black-dust_976/index.html' target='_blank'>View</a></td><td>No matter how busy he keeps himself, successful Broadway musician Tobias Sp...</td></tr>
+<tr><td><strong>Birdsong: A Story in Pictures</strong></td><td>£54.64</td><td><span class='badge'>Three</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/birdsong-a-story-in-pictures_975/index.html' target='_blank'>View</a></td><td>Bring the thrilling story of one red bird to life. When an innocent bird me...</td></tr>
+<tr><td><strong>America's Cradle of Quarterbacks: Western Pennsylvania's Football Factory from Johnny Unitas to Joe Montana</strong></td><td>£22.50</td><td><span class='badge'>Three</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/americas-cradle-of-quarterbacks-western-pennsylvanias-football-factory-from-johnny-unitas-to-joe-montana_974/index.html' target='_blank'>View</a></td><td>Any fan of the Baltimore Colts of my era, any fan of my friend and teammate...</td></tr>
+<tr><td><strong>Aladdin and His Wonderful Lamp</strong></td><td>£53.13</td><td><span class='badge'>Three</span></td><td>In stock (19 available)</td><td><a href='https://books.toscrape.com/catalogue/aladdin-and-his-wonderful-lamp_973/index.html' target='_blank'>View</a></td><td>Planning on seeing Aladdin the Disney musical? Read the classic story of "A...</td></tr>
+<tr><td><strong>Worlds Elsewhere: Journeys Around Shakespeare’s Globe</strong></td><td>£40.30</td><td><span class='badge'>Five</span></td><td>In stock (18 available)</td><td><a href='https://books.toscrape.com/catalogue/worlds-elsewhere-journeys-around-shakespeares-globe_972/index.html' target='_blank'>View</a></td><td>Anti-apartheid activist, Bollywood screenwriter, Nazi pin-up, hero of the W...</td></tr>
+<tr><td><strong>Wall and Piece</strong></td><td>£44.18</td><td><span class='badge'>Four</span></td><td>In stock (18 available)</td><td><a href='https://books.toscrape.com/catalogue/wall-and-piece_971/index.html' target='_blank'>View</a></td><td>Banksy, Britain's now-legendary "guerilla" street artist, has painted the w...</td></tr>
+<tr><td><strong>The Four Agreements: A Practical Guide to Personal Freedom</strong></td><td>£17.66</td><td><span class='badge'>Five</span></td><td>In stock (18 available)</td><td><a href='https://books.toscrape.com/catalogue/the-four-agreements-a-practical-guide-to-personal-freedom_970/index.html' target='_blank'>View</a></td><td>In The Four Agreements, don Miguel Ruiz reveals the source of self-limiting...</td></tr>
+<tr><td><strong>The Five Love Languages: How to Express Heartfelt Commitment to Your Mate</strong></td><td>£31.05</td><td><span class='badge'>Three</span></td><td>In stock (18 available)</td><td><a href='https://books.toscrape.com/catalogue/the-five-love-languages-how-to-express-heartfelt-commitment-to-your-mate_969/index.html' target='_blank'>View</a></td><td>Are you and your spouse speaking the same language? While love is a many sp...</td></tr>
+<tr><td><strong>The Elephant Tree</strong></td><td>£23.82</td><td><span class='badge'>Five</span></td><td>In stock (18 available)</td><td><a href='https://books.toscrape.com/catalogue/the-elephant-tree_968/index.html' target='_blank'>View</a></td><td>Mark Fallon is an overworked detective investigating a spate of attacks at ...</td></tr>
+<tr><td><strong>The Bear and the Piano</strong></td><td>£36.89</td><td><span class='badge'>One</span></td><td>In stock (18 available)</td><td><a href='https://books.toscrape.com/catalogue/the-bear-and-the-piano_967/index.html' target='_blank'>View</a></td><td>One day, a young bear stumbles upon something he has never seen before in t...</td></tr>
+<tr><td><strong>Sophie's World</strong></td><td>£15.94</td><td><span class='badge'>Five</span></td><td>In stock (18 available)</td><td><a href='https://books.toscrape.com/catalogue/sophies-world_966/index.html' target='_blank'>View</a></td><td>A page-turning novel that is also an exploration of the great philosophical...</td></tr>
+<tr><td><strong>Penny Maybe</strong></td><td>£33.29</td><td><span class='badge'>Three</span></td><td>In stock (18 available)</td><td><a href='https://books.toscrape.com/catalogue/penny-maybe_965/index.html' target='_blank'>View</a></td><td>Sent to yet another foster family, Penny decides that the way to claim a se...</td></tr>
+<tr><td><strong>Maude (1883-1993):She Grew Up with the country</strong></td><td>£18.02</td><td><span class='badge'>Two</span></td><td>In stock (18 available)</td><td><a href='https://books.toscrape.com/catalogue/maude-1883-1993she-grew-up-with-the-country_964/index.html' target='_blank'>View</a></td><td>This new edition of Maude (1883-1993) has been updated by Mardo Williams’ d...</td></tr>
+<tr><td><strong>In a Dark, Dark Wood</strong></td><td>£19.63</td><td><span class='badge'>One</span></td><td>In stock (18 available)</td><td><a href='https://books.toscrape.com/catalogue/in-a-dark-dark-wood_963/index.html' target='_blank'>View</a></td><td>In a dark, dark wood Nora hasn't seen Clare for ten years. Not since Nora w...</td></tr>
+<tr><td><strong>Behind Closed Doors</strong></td><td>£52.22</td><td><span class='badge'>Four</span></td><td>In stock (18 available)</td><td><a href='https://books.toscrape.com/catalogue/behind-closed-doors_962/index.html' target='_blank'>View</a></td><td>The 2016 debut bloggers can't stop raving about. Perfect for fans of The Gi...</td></tr>
+<tr><td><strong>You can't bury them all: Poems</strong></td><td>£33.63</td><td><span class='badge'>Two</span></td><td>In stock (17 available)</td><td><a href='https://books.toscrape.com/catalogue/you-cant-bury-them-all-poems_961/index.html' target='_blank'>View</a></td><td>A poetry that is at once harrowing, angry, and achingly beautiful Patrick W...</td></tr>
+<tr><td><strong>Slow States of Collapse: Poems</strong></td><td>£57.31</td><td><span class='badge'>Three</span></td><td>In stock (17 available)</td><td><a href='https://books.toscrape.com/catalogue/slow-states-of-collapse-poems_960/index.html' target='_blank'>View</a></td><td>The eagerly anticipated debut from one of Canada’s most exciting new poets ...</td></tr>
+<tr><td><strong>Reasons to Stay Alive</strong></td><td>£26.41</td><td><span class='badge'>Two</span></td><td>In stock (17 available)</td><td><a href='https://books.toscrape.com/catalogue/reasons-to-stay-alive_959/index.html' target='_blank'>View</a></td><td>I want life. I want to read it and write it and feel it and live it. I want...</td></tr>
+<tr><td><strong>Private Paris (Private #10)</strong></td><td>£47.61</td><td><span class='badge'>Five</span></td><td>In stock (17 available)</td><td><a href='https://books.toscrape.com/catalogue/private-paris-private-10_958/index.html' target='_blank'>View</a></td><td>Paris is burning--and only Private's Jack Morgan can put out the fire.When ...</td></tr>
+<tr><td><strong>#HigherSelfie: Wake Up Your Life. Free Your Soul. Find Your Tribe.</strong></td><td>£23.11</td><td><span class='badge'>Five</span></td><td>In stock (17 available)</td><td><a href='https://books.toscrape.com/catalogue/higherselfie-wake-up-your-life-free-your-soul-find-your-tribe_957/index.html' target='_blank'>View</a></td><td>There is a cosmic alarm clock going off around the world! #HigherSelfie's a...</td></tr>
+<tr><td><strong>Without Borders (Wanderlove #1)</strong></td><td>£45.07</td><td><span class='badge'>Two</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/without-borders-wanderlove-1_956/index.html' target='_blank'>View</a></td><td>For Annie London, a month in a Central American rainforest means handing ou...</td></tr>
+<tr><td><strong>When We Collided</strong></td><td>£31.77</td><td><span class='badge'>One</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/when-we-collided_955/index.html' target='_blank'>View</a></td><td>We are seventeen and shattered and still dancing. We have messy, throbbing ...</td></tr>
+<tr><td><strong>We Love You, Charlie Freeman</strong></td><td>£50.27</td><td><span class='badge'>Five</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/we-love-you-charlie-freeman_954/index.html' target='_blank'>View</a></td><td>The Freeman family--Charles, Laurel, and their daughters, teenage Charlotte...</td></tr>
+<tr><td><strong>Untitled Collection: Sabbath Poems 2014</strong></td><td>£14.27</td><td><span class='badge'>Four</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/untitled-collection-sabbath-poems-2014_953/index.html' target='_blank'>View</a></td><td>More than thirty-five years ago, when the weather allowed, Wendell Berry be...</td></tr>
+<tr><td><strong>Unseen City: The Majesty of Pigeons, the Discreet Charm of Snails & Other Wonders of the Urban Wilderness</strong></td><td>£44.18</td><td><span class='badge'>Four</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/unseen-city-the-majesty-of-pigeons-the-discreet-charm-of-snails-other-wonders-of-the-urban-wilderness_952/index.html' target='_blank'>View</a></td><td>It all started with Nathanael Johnson’s decision to teach his daughter the ...</td></tr>
+<tr><td><strong>Unicorn Tracks</strong></td><td>£18.78</td><td><span class='badge'>Three</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/unicorn-tracks_951/index.html' target='_blank'>View</a></td><td>After a savage attack drives her from her home, sixteen-year-old Mnemba fin...</td></tr>
+<tr><td><strong>Unbound: How Eight Technologies Made Us Human, Transformed Society, and Brought Our World to the Brink</strong></td><td>£25.52</td><td><span class='badge'>One</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/unbound-how-eight-technologies-made-us-human-transformed-society-and-brought-our-world-to-the-brink_950/index.html' target='_blank'>View</a></td><td>Although we usually think of technology as something unique to modern times...</td></tr>
+<tr><td><strong>Tsubasa: WoRLD CHRoNiCLE 2 (Tsubasa WoRLD CHRoNiCLE #2)</strong></td><td>£16.28</td><td><span class='badge'>One</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/tsubasa-world-chronicle-2-tsubasa-world-chronicle-2_949/index.html' target='_blank'>View</a></td><td>DUAL WORLDS, DUAL SIGHTS In the land of Nirai Kanai, there are two realms, ...</td></tr>
+<tr><td><strong>Throwing Rocks at the Google Bus: How Growth Became the Enemy of Prosperity</strong></td><td>£31.12</td><td><span class='badge'>Three</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/throwing-rocks-at-the-google-bus-how-growth-became-the-enemy-of-prosperity_948/index.html' target='_blank'>View</a></td><td>Capital in the Twenty-First Century meets The Second Machine Age in this st...</td></tr>
+<tr><td><strong>This One Summer</strong></td><td>£19.49</td><td><span class='badge'>Four</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/this-one-summer_947/index.html' target='_blank'>View</a></td><td>Every summer, Rose goes with her mom and dad to a lake house in Awago Beach...</td></tr>
+<tr><td><strong>Thirst</strong></td><td>£17.27</td><td><span class='badge'>Five</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/thirst_946/index.html' target='_blank'>View</a></td><td>On a searing summer Friday, Eddie Chapman has been stuck for hours in a tra...</td></tr>
+<tr><td><strong>The Torch Is Passed: A Harding Family Story</strong></td><td>£19.09</td><td><span class='badge'>One</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/the-torch-is-passed-a-harding-family-story_945/index.html' target='_blank'>View</a></td><td>Andrea Harding is a recent college graduate looking forward to attending Du...</td></tr>
+<tr><td><strong>The Secret of Dreadwillow Carse</strong></td><td>£56.13</td><td><span class='badge'>One</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/the-secret-of-dreadwillow-carse_944/index.html' target='_blank'>View</a></td><td>A princess and a peasant girl must embark on a dangerous quest to outwit a ...</td></tr>
+<tr><td><strong>The Pioneer Woman Cooks: Dinnertime: Comfort Classics, Freezer Food, 16-Minute Meals, and Other Delicious Ways to Solve Supper!</strong></td><td>£56.41</td><td><span class='badge'>One</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/the-pioneer-woman-cooks-dinnertime-comfort-classics-freezer-food-16-minute-meals-and-other-delicious-ways-to-solve-supper_943/index.html' target='_blank'>View</a></td><td>THERE’S NO TIME LIKE DINNERTIME!Oh, don’t get me wrong. I adore breakfast. ...</td></tr>
+<tr><td><strong>The Past Never Ends</strong></td><td>£56.50</td><td><span class='badge'>Four</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/the-past-never-ends_942/index.html' target='_blank'>View</a></td><td>A simple task, Attorney Chester Morgan thinks. Get a copy of a public recor...</td></tr>
+<tr><td><strong>The Natural History of Us (The Fine Art of Pretending #2)</strong></td><td>£45.22</td><td><span class='badge'>Three</span></td><td>In stock (16 available)</td><td><a href='https://books.toscrape.com/catalogue/the-natural-history-of-us-the-fine-art-of-pretending-2_941/index.html' target='_blank'>View</a></td><td>One class assignment. One second chance at love. The school player is all i...</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>
